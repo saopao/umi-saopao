@@ -1,0 +1,59 @@
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-left: 1px solid #e8e8e8;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  padding-left: 6px;
+  overflow: hidden;
+}
+.logo :nth-last-child(1){
+  margin: 0;
+  padding-left: 40px;
+  display: inline-block;
+  line-height: 32px;
+  vertical-align: middle;
+  font-style:italic;
+  font-weight: bold;
+}
+.logo :nth-last-child(2){
+  display: inline-block;
+}
+.sider{
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height:100vh;
+  z-index: 9;
+  box-sizing: border-box;
+}
+.header{
+  width: 100%;
+  background:#fff;
+  padding:0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  transition: 0.2s;
+  border-bottom: 1px solid #e8e8e8;
+}
+.content{
+  padding: 80px 16px;
+  padding: 24;
+  background: #fff;
+  min-height: 1000;
+}
+.layout{
+  transition: 0.2s;
+  border-left: 1px solid #e8e8e8;
+}
