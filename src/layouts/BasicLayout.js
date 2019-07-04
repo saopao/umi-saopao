@@ -4,6 +4,7 @@ import styles from './index.css'
 import logoImg from '../assets/smlieFace.png'
 import Link from 'umi/link'
 
+
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -67,7 +68,7 @@ class Index extends Component {
                     {item.arr.map((e) => {
                       return(
                         <Menu.Item key={e}>
-                          <Link to="/login">{e}</Link>
+                          <Link to="/users">{e}</Link>
                         </Menu.Item>
                       )
                     })}

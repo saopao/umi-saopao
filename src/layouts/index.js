@@ -1,21 +1,21 @@
 import React , { Component } from 'react'
 import UserLayout from './UserLayout'
 import BasicLayout from './BasicLayout'
+import { connect } from 'dva';
 
 class Index extends Component{
   render(){
     if(this.props.location.pathname === '/login'){
       return (
-        <UserLayout>
-          {this.props.children}
-        </UserLayout>
+        <UserLayout {...this.props} />
       )
     }
     return(
-      <BasicLayout>
-        {this.props.children}
-      </BasicLayout>
+      <BasicLayout {...this.props} />
     )
   }
 }
-export default Index
+
+export default connect(({ global }) => ({
+  global
+}))(Index);
