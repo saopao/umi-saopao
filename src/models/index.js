@@ -1,13 +1,18 @@
-// import * as usersService from '../services/users';
+import * as users from '@/services/users';
 
 export default {
   namespace: 'global',
   state: {
-    key:""
+    publicKey: ""
   },
   effects: {
-    *getKeys({payload}, { call, put }) {
-      yield put({ type: 'save', payload:{name:"saopaopao"}});
+    *getPublicKey(state, { call, put }) {
+      const { data } = yield call(users.getPublicKey)
+      yield put({ type: 'save', payload: { publicKey: data } });
+    },
+    *login({ payload }, { call }) {
+      const data = yield call(users.login,payload)
+      return data
     },
   },
   reducers: {
@@ -15,13 +20,14 @@ export default {
       return { ...state, ...payload };
     },
   },
-//   subscriptions: {
-//     setup({ dispatch, history }) {
-//       return history.listen(({ pathname, query }) => {
-//         if (pathname === '/users') {
-//           dispatch({ type: 'fetch', payload: query });
-//         }
-//       });
-//     },
-//   },
+  // subscriptions: {
+  //   setup({ dispatch, history }) {
+  //     return history.listen(({ pathname, query }) => {
+  //       console.log(pathname,query)
+  //       // if (pathname === '/users') {
+  //       //   dispatch({ type: 'fetch', payload: query });
+  //       // }
+  //     });
+  //   },
+  // }
 };

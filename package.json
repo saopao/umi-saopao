@@ -10,8 +10,10 @@
   "dependencies": {
     "antd": "^3.19.5",
     "dva": "^2.6.0-beta.6",
+    "jsencrypt": "^3.0.0-rc.1",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "umi-request": "^1.0.8"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",

@@ -1,9 +1,49 @@
 import React, { Component } from 'react'
 import { Layout, Menu, Icon } from 'antd';
-import styles from './index.css'
 import logoImg from '../assets/smlieFace.png'
 import Link from 'umi/link'
+import styles from './index.css'
 
+//侧边栏数据
+const menuArr = [
+  {
+    title:"用户权限",
+    icon:"user",
+    arr:[
+      {name:'用户管理',link:'/'},
+      {name:'角色管理',link:'/roleManage'},
+      {name:'权限管理',link:'/permisManage'},
+      {name:'隐私管理',link:'/privacyManage'},
+    ],
+  },{
+    title:'操作轨迹',
+    icon:'line-chart',
+    arr:[
+      {name:'用户操作轨迹',link:'/trajectory'}
+    ]
+  },{
+    title:'数据统计',
+    icon:'pie-chart',
+    arr:[
+      {name:'基础表统计',link:'/basisStat'},
+      {name:'协助诊疗患者统计',link:'/assistStat'},
+    ],
+  },{
+    title:"数据管理",
+    icon:"dashboard",
+    arr:[
+      {name:"数据主题",link:"/dataTheme"},
+      {name:"数据模板",link:"/dataTemplate"}
+    ]
+  },{
+    title:"数据查询",
+    icon:"bar-chart",
+    arr:[
+      {name:"患者列表",link:"/patientsList"},
+      {name:"患者信息查询",link:"/patientsInfoQuery"}
+    ]
+  }
+]
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -11,38 +51,31 @@ const { SubMenu } = Menu;
 class Index extends Component {
 
   state = {
-    collapsed: false
+    collapsed: false,
+    openKeys: [`${menuArr[0].title}`],
   };
-  //侧边栏搜索框
+  
+  // 侧边栏开关
+  onOpenChange = openKeys => {
+    const latestOpenKey = openKeys.find(key => this.state.openKeys.indexOf(key) === -1);
+    // eslint-disable-next-line no-cond-assign
+    if (menuArr.filter(title => title.title === latestOpenKey).length = 0) {
+      this.setState({ openKeys });
+    } else {
+      this.setState({
+        openKeys: latestOpenKey ? [latestOpenKey] : [],
+      });
+    }
+  };
+  //侧边栏收缩框
   toggle = () => {
     this.setState({
       collapsed: !this.state.collapsed,
     });
   };
-  //侧边栏数据
-  menuArr = [
-    {
-      title:"用户权限",
-      icon:"user",
-      arr:["用户管理","角色管理","权限管理","隐私管理"]
-    },{
-      title:"操作轨迹",
-      icon:"line-chart",
-      arr:["用户操作轨迹"]
-    },{
-      title:"数据统计",
-      icon:"pie-chart",
-      arr:["基础表统计","协助诊疗患者统计"]
-    },{
-      title:"数据管理",
-      icon:"dashboard",
-      arr:["数据主题","数据模板"]
-    },{
-      title:"数据查询",
-      icon:"bar-chart",
-      arr:["患者列表","患者信息查询"]
-    }
-  ]
+  componentDidMount(){
+    console.log(this.props.global)
+  }
 
   render() {
     return (
@@ -55,11 +88,13 @@ class Index extends Component {
           <Menu
             style={{border:'none'}}
             theme="light" 
-            defaultOpenKeys={[`${this.menuArr[0].title}`]} 
-            defaultSelectedKeys={[`${this.menuArr[0].arr[0]}`]} 
+            openKeys={this.state.openKeys}
+            onOpenChange={this.onOpenChange}
+            // defaultOpenKeys={[`${menuArr[0].title}`]} 
+            // defaultSelectedKeys={[`${menuArr[0].arr[0].name}`]} 
             mode="inline">
             {
-              this.menuArr.map((item) => {
+              menuArr.map((item) => {
                 return (
                   <SubMenu
                     key={item.title}
@@ -67,8 +102,8 @@ class Index extends Component {
                   >
                     {item.arr.map((e) => {
                       return(
-                        <Menu.Item key={e}>
-                          <Link to="/users">{e}</Link>
+                        <Menu.Item key={e.name}>
+                          <Link to={e.link}>{e.name}</Link>
                         </Menu.Item>
                       )
                     })}
@@ -86,12 +121,14 @@ class Index extends Component {
               onClick={this.toggle}
             />
           </Header>
-          <Content className={styles.content}>
-            {this.props.children}
-          </Content>
-          <Footer style={{ textAlign: 'center' }}>
-            This Is SaoPao
-          </Footer>
+          <div className={styles.row}>
+            <Content className={styles.content}>
+              {this.props.children}
+            </Content>
+            <Footer style={{ textAlign: 'center' }}>
+              This Is SaoPao
+            </Footer>
+          </div>
         </Layout>
       </Layout>
     )

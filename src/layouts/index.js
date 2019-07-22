@@ -7,7 +7,7 @@ class Index extends Component{
   render(){
     if(this.props.location.pathname === '/login'){
       return (
-        <UserLayout {...this.props} />
+        <UserLayout />
       )
     }
     return(
